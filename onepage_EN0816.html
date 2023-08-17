@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>0807訂閱科學人雜誌</title>
+  <title>Subscribe_0816</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <style>
@@ -26,7 +27,10 @@
         <ul class="nav fixed-top  bg-secondary">
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" style="color:#fff; text-align: center;">Home</a>
+            <a class="nav-link active" aria-current="page" href="index.html" style="color:#fff; text-align: center;">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#container0" style="color:#fff; text-align: center;">Top </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#container1" style="color:#fff; text-align: center;">Special Offer </a>
@@ -46,7 +50,7 @@
   </div>
 
   <!-- carousel 自動 旋轉木馬  -->
-  <div class="container  mt-5">
+  <div class="container  mt-5" id="container0">
     <div class="row">
       <div class="col">
 
@@ -118,7 +122,7 @@
       </div>
     </div>
 
-    <div class="row p-3">1
+    <div class="row p-3">
       <div class="col">
         <div class="card mx-auto" style="width: 18rem;">
           <strong class="card-header" style="background-color: #4CBC36;color:#fff; text-align: center;">Digital</strong>
@@ -165,7 +169,7 @@
   </div>
 
 
-  <!-- 訂單_重新再出發 影片-- 縮放有問題  -->
+  <!-- 訂單_重新再出發 影片  -->
   <div class="container mt-3 text-center " id="container1" style=" height: auto;">
     <div class="row" style="background-color:lemonchiffon; height: auto;">
       <div class="col p-3" style="border: 1px solid;">
@@ -371,7 +375,7 @@
       <div class="row p-3">
         <div class="col">
           <input type="checkbox" class="form-check-input form-label" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          <label class="form-check-label" for="exampleCheck1">Subscribe to newsletter</label>
         </div>
         <div>
           <button type="submit" class="btn btn-link">Submit</button>
@@ -444,7 +448,7 @@
   </div>
   </div> -->
 
-  <!--文化部_iCulture整合性藝文資源資訊平台_ 節慶活動 -->
+  <!--文化部_iCulture整合性藝文資源資訊平台_ 節慶活動 只顯示雙北 -->
   <div class="container mt-3 " id="container4">
     <div class="row  ">
       <div class="col " id="data-list">
@@ -452,7 +456,6 @@
     </div>
     <div class="row  p-3">
       <div class="d-grid gap-2">
-        <!-- <h4 style="text-align: center;color: rgb(241, 237, 237); font-size: 24px" class="badge bg-secondary p-2"></h4> -->
         <button class="btn btn-link" id="startBtn" type="button">+ &nbsp; more &nbsp;&nbsp;&nbsp;&nbsp; (API fm
           iCulture_Event in New Taipei City)</button>
         <button class="btn btn-link" id="resetBtn" type="reset">- &nbsp; close &nbsp;&nbsp;&nbsp;&nbsp; (API fm
@@ -460,6 +463,41 @@
       </div>
     </div>
   </div>
+
+<!--政府資料開放平台_投資理財_ 國際主要國家貨幣年度匯率概況 -->
+<div class="container mt-3">
+
+  <div class="row  p-3" id="rowmyTable">
+    <table id="myTable" class="display">
+      <thead class="display:none">
+        <tr>
+          <td>年度</td>
+          <td>新台幣</td>
+          <td>人民幣</td>
+          <td>日圓</td>
+          <td>韓元</td>
+          <td>新加坡元</td>
+          <td>歐元</td>
+          <td>英鎊</td>
+          <td>澳幣</td>
+        </tr>
+      </thead>
+      <tbody id="myTbody">
+        <!-- insert jquery data -->
+        <!-- foreach php .... -->
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row  p-3">
+    <div class="d-grid gap-2">
+         <button class="btn btn-link" id="startBtn2" type="button">+ &nbsp; more &nbsp;&nbsp;&nbsp;&nbsp; (API exchange rate )</button>
+        <button class="btn btn-link" id="resetBtn2" type="reset">- &nbsp; close &nbsp;&nbsp;&nbsp;&nbsp; (API exchange rate )</button>
+      </div>
+  </div>
+</div>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -469,20 +507,22 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.4/jquery.xdomainrequest.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 
+    <script src="js\rate.js"></script>
 
-  <script> // 串接API_ajax  步驟：1.申請($.ajax) 2.成功後2-1處理資料 JS_map() or JQ_each() or for()
+  <script> // 串接API_活動 ajax  步驟：1.申請($.ajax) 2.成功後2-1處理資料 JS_map() or JQ_each() or for()
     $(document).ready(function () {
 
       const startBtn = $('#startBtn');
       const resetBtn = $('#resetBtn');
-
+      const dataList = $('#data-list');
       resetBtn.hide();
 
       startBtn.click(function () {
         startBtn.hide();
         resetBtn.show();
-        $('#data-list').show();
+        dataList.show();
         const openApiurl = 'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindFestivalTypeJ';
         $.ajax({
           type: "GET",
@@ -503,10 +543,6 @@
             console.log(thrownError);
           }
         });
-
-        //  篩選API內容，限定為雙北
-
-
 
 
         function createDomElement(data) {
@@ -538,29 +574,28 @@
           $.each(data, (index, event) => {
             // $(data).each((index, event) => {     .each寫法不同，功能一樣，function 用箭頭函式(param1, param2) => { ... } 
             let location_e = event.address.substr(0, 3)
-            console.log('location_e', location_e);
+            // console.log('location_e', location_e);
 
             if (location_e == '新北市' || location_e == '臺北市') {
 
 
               domElements[index] = `
-        <div class="card mx-auto mt-3" style="width: 18rem;">
-          <strong class="card-header" style="background-color: #4CBC36;color:#fff; text-align: center;">API &nbsp (fm iCulture_Event)</strong>
-          <div ><img src="https://cloud.culture.tw${event.imageUrl}"  class="card-img-top" style="height: 238px;"></div>
-            <div class="card-body">
-            <p style="background-color:black ;color:#fff; text-align: center;"> ${event.actName}</p>
-            <p class="startTime">${event.startTime} ~ <br>${event.endTime}</p>                              
-            <p class="address">${event.address}</p>
-            <div style=""><a href="${event.website}" class="btn btn-link" target="_blank">website </a></div>
-          </div>
-        </div>
-        `
+               <div class="card mx-auto mt-3" style="width: 18rem;">
+                 <strong class="card-header" style="background-color: #4CBC36;color:#fff; text-align: center;">API &nbsp (fm iCulture_Event)</strong>
+                 <div ><img src="https://cloud.culture.tw${event.imageUrl}"  class="card-img-top" style="height: 238px;"></div>
+                   <div class="card-body">
+                   <p style="background-color:black ;color:#fff; text-align: center;"> ${event.actName}</p>
+                   <p class="startTime">${event.startTime} ~ <br>${event.endTime}</p>                              
+                   <p class="address">${event.address}</p>
+                   <div style=""><a href="${event.website}" class="btn btn-link" target="_blank">website </a></div>
+                 </div>
+               </div>
+               `
             }
           })
-
-          const dataList = $('#data-list');      // JQ 物件 物件 dataList S.fn.init(1)
-          //console.log('dataList', dataList);
-          // dataList.append(domElements);       //用append會重複增加，用html不會重複增加
+                
+          //console.log('dataList', dataList);   // JQ 物件 物件 dataList S.fn.init(1)
+          //dataList.append(domElements);       //用append會重複增加，改用html不會重複增加
           dataList.html(domElements);           
           // const dataList = document.querySelector('#data-list');    // JS原生 <div class="col" id="data-list">/div>)
           // dataList.innerHTML = domElemenbtn-linkts;
@@ -570,12 +605,65 @@
       resetBtn.click(function () {
         startBtn.show();
         resetBtn.hide();
-        $('#data-list').hide();
+        dataList.hide();
       });
 
     });
 
   </script>
+
+  <script> // 串接API_匯率  ajax  步驟：1.下載Json檔案存.js 及data Table套件 2.成功後開啟下載之.js檔案，整理&檢視資料並 let rate= []  3.刻HTML版 & for() & .html(content) & .DataTable();
+  $(document).ready(function () {
+    
+    const rowmyTable = $('#rowmyTable')
+    const myTbody = $('#myTbody');
+    const myTable = $('#myTable');
+    const startBtn2 = $('#startBtn2');
+    const resetBtn2 = $('#resetBtn2');
+    const thead = $('thead');
+
+    resetBtn2.hide();
+    rowmyTable.hide();
+    console.log('resetBtn2 OK');
+
+
+    startBtn2.click(function () {
+        startBtn2.hide();
+        resetBtn2.show();
+        rowmyTable.show();
+
+    let content = '';
+      console.log('rate', rate);
+
+    for (let i = 0; i < rate.length; i++) {
+        content = content + `            
+        <tr>
+          <td>${rate[i]['年度']}</td>
+          <td>${rate[i]['新台幣（匯率）']}</td>
+          <td>${rate[i]['人民幣（匯率）']}</td>
+          <td>${rate[i]['日圓（匯率）']}</td>
+          <td>${rate[i]['韓元（匯率）']}</td>
+          <td>${rate[i]['新加坡元（匯率）']}</td>
+          <td>${rate[i]['歐元（匯率）']}</td>
+          <td>${rate[i]['英鎊（匯率）']}</td>
+          <td>${rate[i]['澳幣（匯率）']}</td>
+        </tr>
+      `;
+      }
+   
+      myTbody.html(content);
+      myTable.DataTable();
+  });
+
+    resetBtn2.click(function () {
+        startBtn2.show();
+        resetBtn2.hide();
+        rowmyTable.hide();
+      });
+
+});
+
+</script>
 
   <script>  //訂單 
 
